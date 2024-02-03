@@ -1,27 +1,38 @@
 let [hours,minutes,seconds,mili_seconds]=[0,0,0,0]
-let timer=null
+let timer1=null
+let timer2=null
+let isRunning=false
 let timeDisplay=document.querySelector('.display');
 
 document.getElementById('start-timer').addEventListener('click',()=>{
-    if(timer!==null)
+    if(timer1!==null)
     {
-        clearInterval(timer);
+        cancelAnimationFrame(timer1);
     }
-    timer=setInterval(display,10);
+    isRunning=true;
+    timer1=requestAnimationFrame(display);
 });
 
 document.getElementById('pause-timer').addEventListener('click',()=>{
-    clearInterval(timer)
+    cancelAnimationFrame(timer1)
+    isRunning=false;
 });
 
 document.getElementById('reset-timer').addEventListener('click',()=>{
-    clearInterval(timer);
+    cancelAnimationFrame(timer1);
+    isRunning=false;
     [hours,minutes,seconds,mili_seconds]=[0,0,0,0];
     timeDisplay.innerHTML='00 : 00 : 00 : 000';
 });
 
 function display(){
-    mili_seconds++;
+
+    if(!isRunning) return;
+
+    if(timer2!==null)
+    cancelAnimationFrame(timer2)
+
+    mili_seconds+=10;
     if(mili_seconds==1000){
         seconds++;
         mili_seconds=0;
@@ -41,5 +52,7 @@ function display(){
     let hourStr=(hours<10)?('0'+hours):hours;
 
     timeDisplay.innerHTML=`${hourStr} :  ${minStr} : ${secondsStr} : ${mili_secondsStr}`;
+
+    timer2=requestAnimationFrame(display)
 
 }

@@ -95,10 +95,10 @@ body{
     box-shadow: -1px -1px 1px rgba(0,0,0,0.6);
 }
 
-@media(max-width:600px){
+@media(max-width:360px ){
     
     .container{
-        transform: scale(0.6);
+        transform: scale(0.5);
         top: 200px;
         left:-120px;
         
